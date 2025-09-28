@@ -12,6 +12,7 @@ export default function Uploader() {
   const [busy, setBusy] = useState(false);
   const [log, setLog] = useState<string[]>([]);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const [leftDocId, setLeftDocId] = useState<number | null>(null);
 
   function pushLog(s: string) {
     setLog((prev) => [...prev, s]);
@@ -69,7 +70,7 @@ export default function Uploader() {
       pushLog(`上传文件：${f.name}`);
       const res = await ingestViaFile(f);
       pushLog(`入库成功，doc_id=${res.doc_id}`);
-      await maybeCompare(res.auto, res.doc_id);
+      await startCompare(res.doc_id);
     } catch (e: any) {
       pushLog(`错误：${e.message || e.toString()}`);
     } finally {
@@ -85,7 +86,7 @@ export default function Uploader() {
       pushLog(`抓取链接：${url}`);
       const res = await ingestViaUrl(url.trim());
       pushLog(`入库成功，doc_id=${res.doc_id}`);
-      await maybeCompare(res.auto, res.doc_id);
+      await startCompare(res.doc_id);
     } catch (e: any) {
       pushLog(`错误：${e.message || e.toString()}`);
     } finally {

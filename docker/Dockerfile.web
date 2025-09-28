@@ -1,0 +1,12 @@
+FROM node:20
+
+WORKDIR /app
+
+COPY web/package.json web/package-lock.json* web/pnpm-lock.yaml* ./web/
+RUN cd web && npm install
+
+COPY web ./web
+
+ENV NEXT_TELEMETRY_DISABLED=1
+
+CMD ["sh", "-c", "cd web && npm run dev"]

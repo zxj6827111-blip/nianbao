@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nianbao"
+version = "0.1.0"
+description = "Government annual report comparison platform"
+authors = [{name="MVP"}]
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "sqlalchemy",
+  "psycopg2-binary",
+  "alembic",
+  "pydantic",
+  "python-multipart",
+  "requests",
+  "beautifulsoup4",
+  "trafilatura",
+  "lxml",
+  "numpy",
+  "pandas",
+  "scikit-learn",
+  "python-docx",
+  "weasyprint",
+  "jinja2",
+  "python-dateutil",
+  "openpyxl",
+  "pypdf2",
+  "tqdm",
+  "aiofiles"
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx", "pytest-asyncio", "pytest-cov"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra --maxfail=1"
+testpaths = ["tests"]
